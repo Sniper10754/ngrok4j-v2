@@ -34,3 +34,7 @@ publishing {
         from(components["java"])
     }
 }
+
+tasks.test {
+    useJUnit()
+}

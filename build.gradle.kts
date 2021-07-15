@@ -1,5 +1,3 @@
-import java.net.URI
-
 plugins {
     java
     kotlin("jvm") version "1.5.21"
@@ -14,9 +12,10 @@ repositories {
 }
 
 dependencies {
+    testImplementation("junit:junit:4.13")
     implementation(project("ngrok4j"))
 }
 
 tasks.getByName<Test>("test") {
-    useJUnitPlatform()
+    useJUnit()
 }
