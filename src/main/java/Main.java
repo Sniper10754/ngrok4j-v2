@@ -11,5 +11,12 @@ public class Main {
         System.out.println(tunnel.name);
         System.out.println(tunnel.publicUrl);
         System.out.println(tunnel.protocol);
+
+        // wait until ngrok client doesn't stop
+        try {
+            client.getProcess().waitFor();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

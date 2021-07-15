@@ -128,4 +128,8 @@ public class NgrokClient {
     public TunnelBuilder build() {
         return new TunnelBuilder(this);
     }
+
+    public Process getProcess() {
+        return process;
+    }
 }
