@@ -1,4 +1,4 @@
-package lol.gilliard.ngrok;
+package org.ngrok4j;
 
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
@@ -66,12 +66,13 @@ public class Ngrok {
     public static NgrokClient startClient(String binaryName) {
 
         try {
+
             Process ngrokProcess = new ProcessBuilder(binaryName, "start", "--none", "-log=stdout")
                 .redirectErrorStream(true)
                 .start();
 
             String ngrokWebServiceUrl =
-                CompletableFuture
+                    CompletableFuture
                     .supplyAsync(() -> waitForWebServiceUrl(ngrokProcess))
                     .get(5, TimeUnit.SECONDS)
                         .replace("4041", "4040");

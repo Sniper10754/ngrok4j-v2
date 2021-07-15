@@ -1,4 +1,4 @@
-package lol.gilliard.ngrok.client;
+package org.ngrok4j.client;
 
 public class TunnelDefinition {
 

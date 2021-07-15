@@ -1,6 +1,6 @@
-package lol.gilliard.ngrok;
+package org.ngrok4j;
 
-import lol.gilliard.ngrok.client.TunnelDetails;
+import org.ngrok4j.client.TunnelDetails;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

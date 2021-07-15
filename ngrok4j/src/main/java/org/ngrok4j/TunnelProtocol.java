@@ -1,4 +1,4 @@
-package lol.gilliard.ngrok;
+package org.ngrok4j;
 
 public enum TunnelProtocol {
 

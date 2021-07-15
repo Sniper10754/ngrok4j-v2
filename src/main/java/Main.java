@@ -1,13 +1,16 @@
-import lol.gilliard.ngrok.Ngrok;
-import lol.gilliard.ngrok.NgrokClient;
-import lol.gilliard.ngrok.TunnelProtocol;
-import lol.gilliard.ngrok.client.TunnelDetails;
+import org.ngrok4j.Ngrok;
+import org.ngrok4j.NgrokClient;
+import org.ngrok4j.TunnelProtocol;
+import org.ngrok4j.client.TunnelDetails;
 
 public class Main {
     public static void main(String[] args) {
+        // start a client
         NgrokClient client = Ngrok.startClient();
+        // start a tunnel
         TunnelDetails tunnel = client.connect("my tunnel", TunnelProtocol.HTTP, 8080);
 
+        // print some information
         System.out.println(tunnel.name);
         System.out.println(tunnel.publicUrl);
         System.out.println(tunnel.protocol);

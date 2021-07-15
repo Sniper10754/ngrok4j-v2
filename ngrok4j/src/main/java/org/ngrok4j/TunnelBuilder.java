@@ -1,7 +1,7 @@
-package lol.gilliard.ngrok;
+package org.ngrok4j;
 
-import lol.gilliard.ngrok.client.TunnelDefinition;
-import lol.gilliard.ngrok.client.TunnelDetails;
+import org.ngrok4j.client.TunnelDefinition;
+import org.ngrok4j.client.TunnelDetails;
 
 public class TunnelBuilder {
 

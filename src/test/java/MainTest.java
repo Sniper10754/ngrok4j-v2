@@ -1,7 +1,7 @@
-import lol.gilliard.ngrok.Ngrok;
-import lol.gilliard.ngrok.NgrokClient;
-import lol.gilliard.ngrok.TunnelProtocol;
-import lol.gilliard.ngrok.client.TunnelDetails;
+import org.ngrok4j.Ngrok;
+import org.ngrok4j.NgrokClient;
+import org.ngrok4j.TunnelProtocol;
+import org.ngrok4j.client.TunnelDetails;
 import org.junit.Assert;
 
 public class MainTest {

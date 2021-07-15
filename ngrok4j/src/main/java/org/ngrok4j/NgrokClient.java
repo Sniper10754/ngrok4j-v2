@@ -1,10 +1,10 @@
-package lol.gilliard.ngrok;
+package org.ngrok4j;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lol.gilliard.ngrok.client.TunnelDefinition;
-import lol.gilliard.ngrok.client.TunnelDetails;
-import lol.gilliard.ngrok.client.TunnelDetailsList;
+import org.ngrok4j.client.TunnelDefinition;
+import org.ngrok4j.client.TunnelDetails;
+import org.ngrok4j.client.TunnelDetailsList;
 import okhttp3.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -112,7 +112,7 @@ public class NgrokClient {
     }
 
     public void disconnectAll(){
-        listTunnels().stream().forEach(tunnel -> disconnect(tunnel.name));
+        listTunnels().forEach(tunnel -> disconnect(tunnel.name));
     }
 
     public void shutdown(){
