@@ -6,8 +6,13 @@ import org.ngrok4j.client.TunnelDetails;
 public class Main {
     public static void main(String[] args) {
         // start a client
-        NgrokClient client = Ngrok.startClient();
+        // if NgrokClient doesn't find ngrok in path, throws a NgrokException, here you can specify the
+        // Absolute path of ngrok.
+
+        NgrokClient client = Ngrok.startClient("C:\\Users\\aless\\OneDrive\\Desktop\\ngrok.exe");
+
         // start a tunnel
+
         TunnelDetails tunnel = client.connect("my tunnel", TunnelProtocol.HTTP, 8080);
 
         // print some information

@@ -42,6 +42,7 @@ public class NgrokClient {
 
             Response response = httpClient.newCall(request).execute();
 
+
             return MAPPER.readValue(response.body().string(), TunnelDetails.class);
 
         } catch (IOException e) {
