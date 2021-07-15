@@ -19,7 +19,6 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:4.6.0")
     implementation("org.slf4j:slf4j-api:1.7.30")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.0")
-    testImplementation("com.sparkjava:spark-core:2.9.2")
     testImplementation("org.slf4j:slf4j-simple:1.7.30")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.7.0")
 }
@@ -27,13 +26,8 @@ dependencies {
 group = "lol.gilliard"
 version = "1.0-SNAPSHOT"
 description = "ngrok4j"
-java.sourceCompatibility = JavaVersion.VERSION_1_8
 
-publishing {
-    publications.create<MavenPublication>("maven") {
-        from(components["java"])
-    }
-}
+java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 tasks.test {
     useJUnit()
