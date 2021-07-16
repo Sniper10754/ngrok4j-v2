@@ -4,7 +4,7 @@ Original wrapper: https://github.com/mjg123/ngrok4j
 
 <code> Unofficial Wrapper </code>
 
-example:
+example: <code>./gradlew run</code>
 
 ```java
 public class Main {
