@@ -12,7 +12,6 @@ public class Main {
         NgrokClient client = Ngrok.startClient("C:\\Users\\aless\\OneDrive\\Desktop\\ngrok.exe");
 
         // start a tunnel
-
         TunnelDetails tunnel = client.connect("my tunnel", TunnelProtocol.HTTP, 8080);
 
         // print some information
