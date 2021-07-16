@@ -16,7 +16,7 @@ public class NgrokTest {
 
     @BeforeEach
     public void clientInit() {
-        client = Ngrok.startClient();
+        client = Ngrok.startClient(".\\src\\test\\resources\\ngrok.exe");
     }
 
     @AfterEach
@@ -32,7 +32,7 @@ public class NgrokTest {
     @Test
     public void instantiateTwoNgroks() {
         // should be fine, no exceptions
-        NgrokClient client2 = Ngrok.startClient();
+        NgrokClient client2 = Ngrok.startClient(".\\src\\test\\resources\\ngrok.exe");
         client2.shutdown();
     }
 
@@ -72,24 +72,6 @@ public class NgrokTest {
     public void fetchTunnelThatDoesntExist() {
         Tunnel tunnel = client.getTunnel("doesn't exist");
         assertNull(tunnel);
-    }
-
-    @Test
-    public void separateTunnelsOnTwoNgrokInstances() {
-        NgrokClient client2 = Ngrok.startClient();
-
-        client.connect("client1 tunnel", TunnelProtocol.HTTP, 8080);
-        client2.connect("client2 tunnel", TunnelProtocol.HTTP, 8080);
-
-        assertEquals(2, client.listTunnels().size());
-        assertNotNull(client.getTunnel("client1 tunnel"));
-        assertNull(client.getTunnel("client2 tunnel"));
-
-        assertEquals(2, client2.listTunnels().size());
-        assertNotNull(client2.getTunnel("client2 tunnel"));
-        assertNull(client2.getTunnel("client1 tunnel"));
-
-        client2.shutdown();
     }
 
     @Test

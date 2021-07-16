@@ -30,5 +30,5 @@ dependencies {
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 tasks.test {
-    useJUnit()
+    useJUnitPlatform()
 }

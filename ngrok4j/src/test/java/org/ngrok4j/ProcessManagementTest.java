@@ -24,7 +24,7 @@ public class ProcessManagementTest {
 
     @Test
     public void ngrokVersionSuccess(){
-        assertTrue(Ngrok.getVersion().length() > 0);
+        assertTrue(Ngrok.getVersion(".\\src\\test\\resources\\ngrok.exe").length() > 0);
     }
 
 }

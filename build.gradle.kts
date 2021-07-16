@@ -14,7 +14,7 @@ repositories {
 }
 
 dependencies {
-    testImplementation("junit:junit:4.13")
+    implementation("org.junit.jupiter:junit-jupiter:5.7.0")
     implementation(project("ngrok4j"))
 }
 
@@ -22,8 +22,8 @@ application {
     mainClass.set("Main")
 }
 
-tasks.getByName<Test>("test") {
-    useJUnit()
+tasks.test {
+    useJUnitPlatform()
 }
 
 tasks.shadowJar {
