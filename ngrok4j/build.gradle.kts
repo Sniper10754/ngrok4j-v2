@@ -23,7 +23,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.7.0")
 }
 
-group = "lol.gilliard"
+group = "org.ngrok"
 version = "1.0-SNAPSHOT"
 description = "ngrok4j"
 
