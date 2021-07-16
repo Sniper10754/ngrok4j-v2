@@ -22,6 +22,5 @@ public class Main {
         // wait until ngrok client doesn't stop
 
         client.getProcess().waitFor();
-
     }
 }
