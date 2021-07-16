@@ -10,6 +10,9 @@ public enum TunnelProtocol {
         this.name = name;
     }
 
+    /**
+     * @return Protocol name
+     */
     public String getName() {
         return name;
     }

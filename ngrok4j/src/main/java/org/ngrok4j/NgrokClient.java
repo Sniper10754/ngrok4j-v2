@@ -2,10 +2,10 @@ package org.ngrok4j;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import okhttp3.*;
 import org.ngrok4j.client.Tunnel;
 import org.ngrok4j.client.TunnelDefinition;
 import org.ngrok4j.client.TunnelList;
-import okhttp3.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,33 +14,36 @@ import java.util.List;
 
 public class NgrokClient {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(NgrokClient.class);
+    private static final Logger LOGGER=LoggerFactory.getLogger(NgrokClient.class);
 
-    public static final ObjectMapper MAPPER = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    public static final ObjectMapper MAPPER=new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
     private final Process process;
     private final OkHttpClient httpClient;
 
-    private final MediaType MEDIA_TYPE_JSON = MediaType.parse("application/json; charset=utf-8");
+    private final MediaType MEDIA_TYPE_JSON=MediaType.parse("application/json; charset=utf-8");
 
     private final String baseUrl;
 
     protected NgrokClient(Process ngrokProcess, String ngrokWebServiceUrl) {
-        this.process = ngrokProcess;
-        this.baseUrl = "http://" + ngrokWebServiceUrl + "/api";
-        httpClient = new OkHttpClient();
+        this.process=ngrokProcess;
+        this.baseUrl="http://" + ngrokWebServiceUrl + "/api";
+        httpClient=new OkHttpClient();
     }
 
+    /**
+     * returns a tunnel
+     *
+     * @param definition a TunnelDefinition to build the tunnel
+     * @return Tunnel
+     */
     public Tunnel connect(TunnelDefinition definition) {
         try {
-            String body = MAPPER.writeValueAsString(definition);
+            String body=MAPPER.writeValueAsString(definition);
 
-            Request request = new Request.Builder()
-                .url(baseUrl + "/tunnels")
-                .method("POST", RequestBody.create(body, MEDIA_TYPE_JSON))
-                .build();
+            Request request=new Request.Builder().url(baseUrl + "/tunnels").method("POST", RequestBody.create(body, MEDIA_TYPE_JSON)).build();
 
-            Response response = httpClient.newCall(request).execute();
+            Response response=httpClient.newCall(request).execute();
 
 
             return MAPPER.readValue(response.body().string(), Tunnel.class);
@@ -50,20 +53,31 @@ public class NgrokClient {
         }
     }
 
+    /**
+     * Raw constructor of Class TunnelDefinition
+     *
+     * @param name     Name of the tunnel
+     * @param protocol Tunnel protocol
+     * @param port     Tunnel port
+     * @return Tunnel
+     */
     public Tunnel connect(String name, TunnelProtocol protocol, int port) {
-        TunnelDefinition definition = new TunnelDefinition(name, protocol.getName(), port);
+        TunnelDefinition definition=new TunnelDefinition(name, protocol.getName(), port);
         return connect(definition);
     }
+
+    /**
+     * Returns a list of the active tunnels.
+     *
+     * @return List of active tunnels
+     */
 
     public List<Tunnel> listTunnels() {
 
         try {
-            Request request = new Request.Builder()
-                .url(baseUrl + "/tunnels")
-                .header("accept", "application/json")
-                .build();
+            Request request=new Request.Builder().url(baseUrl + "/tunnels").header("accept", "application/json").build();
 
-            Response response = httpClient.newCall(request).execute();
+            Response response=httpClient.newCall(request).execute();
 
             return MAPPER.readValue(response.body().string(), TunnelList.class).tunnels;
 
@@ -73,16 +87,19 @@ public class NgrokClient {
 
     }
 
+    /**
+     * Returns a tunnel from the name.
+     *
+     * @param tunnelName TunnelName
+     * @return Tunnel
+     */
     public Tunnel getTunnel(String tunnelName) {
         try {
-            Request request = new Request.Builder()
-                .url(baseUrl + "/tunnels/" + tunnelName)
-                .header("accept", "application/json")
-                .build();
+            Request request=new Request.Builder().url(baseUrl + "/tunnels/" + tunnelName).header("accept", "application/json").build();
 
-            Response response = httpClient.newCall(request).execute();
+            Response response=httpClient.newCall(request).execute();
 
-            if (!response.isSuccessful()){
+            if (! response.isSuccessful()) {
                 return null;
             }
 
@@ -93,17 +110,19 @@ public class NgrokClient {
         }
     }
 
+    /**
+     * Disconnects a Tunnel from name.
+     *
+     * @param tunnelName Tunnel name
+     */
     public void disconnect(String tunnelName) {
 
         try {
-            Request request = new Request.Builder()
-                .url(baseUrl + "/tunnels/" + tunnelName)
-                .delete()
-                .build();
+            Request request=new Request.Builder().url(baseUrl + "/tunnels/" + tunnelName).delete().build();
 
-            Response response = httpClient.newCall(request).execute();
+            Response response=httpClient.newCall(request).execute();
 
-            if (! response.isSuccessful()){
+            if (! response.isSuccessful()) {
                 throw new NgrokException(String.format("Failed to disconnect tunnel: %s", response.body().string()));
             }
 
@@ -112,11 +131,17 @@ public class NgrokClient {
         }
     }
 
-    public void disconnectAll(){
+    /**
+     * Shuts down all tunnels
+     */
+    public void disconnectAll() {
         listTunnels().forEach(tunnel -> disconnect(tunnel.name));
     }
 
-    public void shutdown(){
+    /**
+     * Shutdowns the client process.
+     */
+    public void shutdown() {
         try {
             process.destroy(); // polite request
             process.waitFor(); // blocks until the process is gone
@@ -126,10 +151,20 @@ public class NgrokClient {
         }
     }
 
+    /**
+     *
+     * @return TunnelBuilder
+     */
     public TunnelBuilder build() {
         return new TunnelBuilder(this);
     }
 
+    /**
+     * Returns the ngrok process
+     * be careful and don't touch streams, and other things that can
+     * damage ngrok.
+     * @return Ngrok process
+     */
     public Process getProcess() {
         return process;
     }

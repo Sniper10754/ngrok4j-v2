@@ -18,6 +18,10 @@ public class Tunnel {
         this.name = name;
     }
 
+    /**
+     * Builds a String definition of the tunnel
+     * @return String definition
+     */
     @Override
     public String toString() {
         return "Tunnel{" +

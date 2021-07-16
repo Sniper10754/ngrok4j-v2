@@ -23,15 +23,27 @@ public class Ngrok {
 
     private static final Pattern NGROK_VERSION = Pattern.compile("ngrok version (.+)");
 
+    /**
+     * Returns the Ngrok executable name
+     * in base on the OS.
+     * @return String
+     */
     private static String defaultNgrokBinaryName(){
         return System.getProperty("os.name").startsWith("Windows") ? "ngrok.exe" : "ngrok";
     }
 
+    /**
+     * returns the version of the Ngrok executable
+     * @return String
+     */
     public static String getVersion() {
         return getVersion(defaultNgrokBinaryName());
     }
 
-
+    /**
+     * @param binaryName the Ngrok binary name.
+     * @return Binary ngrok version
+     */
     public static String getVersion(String binaryName) {
         try {
             Process ngrokProcess = new ProcessBuilder(binaryName, "--version")
@@ -59,10 +71,19 @@ public class Ngrok {
 
     }
 
+    /**
+     * start a client
+     * @return NgrokClient
+     */
     public static NgrokClient startClient() {
         return startClient(defaultNgrokBinaryName());
     }
 
+    /**
+     * starts a Client from a specified location
+     * @param binaryName Ngrok binary name
+     * @return Specific NgrokClient
+     */
     public static NgrokClient startClient(String binaryName) {
 
         try {
