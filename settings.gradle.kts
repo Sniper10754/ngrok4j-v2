@@ -1,4 +1,4 @@
-rootProject.name = "ngrok4j-fixed"
+rootProject.name = "ngrok4j-v2"
 include(
     "ngrok4j"
 )
