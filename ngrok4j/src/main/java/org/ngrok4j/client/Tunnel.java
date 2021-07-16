@@ -2,13 +2,13 @@ package org.ngrok4j.client;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class TunnelDetails {
+public class Tunnel {
 
     public final String publicUrl;
     public final String protocol;
     public final String name;
 
-    public TunnelDetails(
+    public Tunnel(
         @JsonProperty("public_url") String publicUrl,
         @JsonProperty("proto") String protocol,
         @JsonProperty("name") String name
@@ -20,7 +20,7 @@ public class TunnelDetails {
 
     @Override
     public String toString() {
-        return "TunnelDetails{" +
+        return "Tunnel{" +
                "publicUrl='" + publicUrl + '\'' +
                ", protocol='" + protocol + '\'' +
                ", name='" + name + '\'' +

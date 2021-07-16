@@ -1,5 +1,6 @@
 plugins {
     java
+    application
     kotlin("jvm") version "1.5.21"
 }
 
@@ -16,6 +17,11 @@ dependencies {
     implementation(project("ngrok4j"))
 }
 
+application {
+    mainClass.set("Main")
+}
+
 tasks.getByName<Test>("test") {
     useJUnit()
 }
+

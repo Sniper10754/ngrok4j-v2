@@ -1,6 +1,6 @@
 package org.ngrok4j;
 
-import org.ngrok4j.client.TunnelDetails;
+import org.ngrok4j.client.Tunnel;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,7 +26,7 @@ public class NgrokTest {
 
     @Test
     public void createAndFetchTunnelDetails() {
-        TunnelDetails tunnel = client.connect("test-tunnel", TunnelProtocol.HTTP, 8080);
+        Tunnel tunnel = client.connect("test-tunnel", TunnelProtocol.HTTP, 8080);
     }
 
     @Test
@@ -46,7 +46,7 @@ public class NgrokTest {
     public void listTunnels() {
         client.connect("test-tunnel", TunnelProtocol.HTTP, 8080);
 
-        List<TunnelDetails> allTunnels = client.listTunnels();
+        List<Tunnel> allTunnels = client.listTunnels();
 
         // 2 because you get an "http" and an "https"
         assertEquals(2, allTunnels.size());
@@ -62,7 +62,7 @@ public class NgrokTest {
     @Test
     public void fetchTunnelByName() {
         client.connect("test-tunnel", TunnelProtocol.HTTP, 8080);
-        TunnelDetails tunnel = client.getTunnel("test-tunnel");
+        Tunnel tunnel = client.getTunnel("test-tunnel");
 
         assertEquals("test-tunnel", tunnel.name);
         assertEquals("https", tunnel.protocol);
@@ -70,7 +70,7 @@ public class NgrokTest {
 
     @Test
     public void fetchTunnelThatDoesntExist() {
-        TunnelDetails tunnel = client.getTunnel("doesn't exist");
+        Tunnel tunnel = client.getTunnel("doesn't exist");
         assertNull(tunnel);
     }
 
@@ -105,7 +105,7 @@ public class NgrokTest {
 
         assertEquals(2, client.listTunnels().size());
 
-        TunnelDetails tunnel = client.getTunnel(tunnelName);
+        Tunnel tunnel = client.getTunnel(tunnelName);
         assertEquals(tunnelName, tunnel.name);
     }
 

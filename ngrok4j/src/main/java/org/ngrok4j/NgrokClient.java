@@ -2,9 +2,9 @@ package org.ngrok4j;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.ngrok4j.client.Tunnel;
 import org.ngrok4j.client.TunnelDefinition;
-import org.ngrok4j.client.TunnelDetails;
-import org.ngrok4j.client.TunnelDetailsList;
+import org.ngrok4j.client.TunnelList;
 import okhttp3.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +31,7 @@ public class NgrokClient {
         httpClient = new OkHttpClient();
     }
 
-    public TunnelDetails connect(TunnelDefinition definition) {
+    public Tunnel connect(TunnelDefinition definition) {
         try {
             String body = MAPPER.writeValueAsString(definition);
 
@@ -43,19 +43,19 @@ public class NgrokClient {
             Response response = httpClient.newCall(request).execute();
 
 
-            return MAPPER.readValue(response.body().string(), TunnelDetails.class);
+            return MAPPER.readValue(response.body().string(), Tunnel.class);
 
         } catch (IOException e) {
             throw new NgrokException("Failed to create tunnel", e);
         }
     }
 
-    public TunnelDetails connect(String name, TunnelProtocol protocol, int port) {
+    public Tunnel connect(String name, TunnelProtocol protocol, int port) {
         TunnelDefinition definition = new TunnelDefinition(name, protocol.getName(), port);
         return connect(definition);
     }
 
-    public List<TunnelDetails> listTunnels() {
+    public List<Tunnel> listTunnels() {
 
         try {
             Request request = new Request.Builder()
@@ -65,7 +65,7 @@ public class NgrokClient {
 
             Response response = httpClient.newCall(request).execute();
 
-            return MAPPER.readValue(response.body().string(), TunnelDetailsList.class).tunnels;
+            return MAPPER.readValue(response.body().string(), TunnelList.class).tunnels;
 
         } catch (IOException e) {
             throw new NgrokException("Failed to list tunnels", e);
@@ -73,7 +73,7 @@ public class NgrokClient {
 
     }
 
-    public TunnelDetails getTunnel(String tunnelName) {
+    public Tunnel getTunnel(String tunnelName) {
         try {
             Request request = new Request.Builder()
                 .url(baseUrl + "/tunnels/" + tunnelName)
@@ -82,11 +82,11 @@ public class NgrokClient {
 
             Response response = httpClient.newCall(request).execute();
 
-            if (! response.isSuccessful()){
+            if (!response.isSuccessful()){
                 return null;
             }
 
-            return MAPPER.readValue(response.body().string(), TunnelDetails.class);
+            return MAPPER.readValue(response.body().string(), Tunnel.class);
 
         } catch (IOException e) {
             throw new NgrokException("Failed to list tunnels", e);

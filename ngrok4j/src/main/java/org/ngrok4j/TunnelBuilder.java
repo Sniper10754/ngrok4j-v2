@@ -1,7 +1,7 @@
 package org.ngrok4j;
 
 import org.ngrok4j.client.TunnelDefinition;
-import org.ngrok4j.client.TunnelDetails;
+import org.ngrok4j.client.Tunnel;
 
 public class TunnelBuilder {
 
@@ -34,7 +34,7 @@ public class TunnelBuilder {
         return new TunnelDefinition(name, protocol.getName(), port);
     }
 
-    public TunnelDetails connect() {
+    public Tunnel connect() {
         return ngrokClient.connect(this.buildDefinition());
     }
 }

@@ -7,6 +7,10 @@ plugins {
     `maven-publish`
 }
 
+group = "org.ngrok"
+version = "1.0-SNAPSHOT"
+description = "ngrok4j"
+
 repositories {
     mavenLocal()
     maven {
@@ -22,10 +26,6 @@ dependencies {
     testImplementation("org.slf4j:slf4j-simple:1.7.30")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.7.0")
 }
-
-group = "org.ngrok"
-version = "1.0-SNAPSHOT"
-description = "ngrok4j"
 
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
