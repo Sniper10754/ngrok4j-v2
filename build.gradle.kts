@@ -1,4 +1,5 @@
 plugins {
+    id("com.github.johnrengelman.shadow") version "7.0.0"
     java
     application
     kotlin("jvm") version "1.5.21"
@@ -25,3 +26,8 @@ tasks.getByName<Test>("test") {
     useJUnit()
 }
 
+tasks.shadowJar {
+    manifest {
+        attributes["Main-Class"] = "Main"
+    }
+}

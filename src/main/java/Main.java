@@ -4,7 +4,7 @@ import org.ngrok4j.TunnelProtocol;
 import org.ngrok4j.client.Tunnel;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         // start a client
         // if NgrokClient doesn't find ngrok in path, throws a NgrokException, here you can specify the
         // Absolute path of ngrok.
@@ -20,10 +20,8 @@ public class Main {
         System.out.println(tunnel.protocol);
 
         // wait until ngrok client doesn't stop
-        try {
-            client.getProcess().waitFor();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
+        client.getProcess().waitFor();
+
     }
 }
