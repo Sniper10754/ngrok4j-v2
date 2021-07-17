@@ -33,3 +33,8 @@ public class Main {
     }
 }
 ```
+
+# Goals
+
+- [x] Ngrok starter
+    - [x] Information of client and tunnels (made by @mjg123)
